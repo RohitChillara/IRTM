@@ -7,7 +7,9 @@ authors = [
     { name = "Rohit Chillara", email = "rohitchillara@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "nltk>=3.10.4",
+]
 
 [project.scripts]
 irtm = "irtm:main"
