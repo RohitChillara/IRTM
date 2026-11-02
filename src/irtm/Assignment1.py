@@ -1,6 +1,6 @@
 """IRTM Assignment 1 - Programming Task 1: non-positional inverted index over tweets.
 
-Group members: <NAME 1>, <NAME 2>, <NAME 3>
+Group members: Rohit Chillara, Shrery Parmar, Manmeet Kohli
 """
 from __future__ import annotations
 
