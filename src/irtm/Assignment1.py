@@ -1,6 +1,6 @@
 """IRTM Assignment 1 - Programming Task 1: non-positional inverted index over tweets.
 
-Group members: Rohit Chillara, Shrery Parmar, Manmeet Kohli
+Group members: Rohit Chillara (3864874), Shrey Parmar (3869455), Manmeet Kohli (3827691)
 """
 from __future__ import annotations
 
@@ -102,11 +102,11 @@ def tokenize(text: str) -> list:
     no_url = re.sub(r'https?://\S+', ' ', no_lines)
     no_mentions = re.sub(r'(?<!\S)@\S+', ' ', no_url)
 
-    lowered = no_mentions.lower().replace("’", "'")      # curly -> straight apostrophe
-    no_poss = re.sub(r"'s(?![a-z])", " ", lowered)       # drop possessive / 's contraction
+    lowered = no_mentions.lower().replace("’", "'")          # curly -> straight apostrophe
+    no_poss = re.sub(r"'s(?![a-z0-9])", " ", lowered)        # drop possessive / 's contraction
 
-    # Letter runs, optionally joined by internal apostrophes (isn't stays one term).
-    words = re.findall(r"[a-z]+(?:'[a-z]+)*", no_poss)
+    # Runs of letters and digits, optionally joined by internal apostrophes (isn't stays one term).
+    words = re.findall(r"[a-z0-9]+(?:'[a-z0-9]+)*", no_poss)
 
     return [w for w in words if w not in STOP]
 
@@ -218,9 +218,11 @@ if __name__ == "__main__":
     runs = [
         ("query('malaria', 'vaccine')", query("malaria", "vaccine")),
         ("query_all('side effects of malaria vaccines')", query_all("side effects of malaria vaccines")),
+        ("query_all('side effects of vaccines')",query_all('side effects of vaccines'))
     ]
     for label, hits in runs:
-        print(label, "->", len(hits), "tweets")
+        print(label, "->", len(hits), "tweets\n")
         for doc_id in islice(hits, 10):
             d = documents[doc_id]
             print(d.tweet_id, d.tweet[:120])
+            print('\n')
